@@ -16,7 +16,7 @@ To use randrem, you'll need to clone the repository and edit the `call.sh` scrip
 
 Here's how to get started:
 
-1. Clone the repository: `git clone https://github.com/<your-username>/randrem.git`
+1. Clone the repository: `git clone https://github.com/lquenti/randrem.git`
 2. Edit the `call.sh` script
    - Customize the reminder messages and time intervals in the `randrem.sh` commands to fit your needs.
 3. Make the scripts executable: `chmod +x randrem/call.sh randrem/randrem.sh`
