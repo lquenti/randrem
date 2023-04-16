@@ -7,5 +7,6 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1"
+human-panic = "1.1"
 notify-rust = "4"
 rand = "0.8"

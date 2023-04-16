@@ -2,6 +2,7 @@ use std::thread;
 use std::time::Duration;
 
 use anyhow::Result;
+use human_panic::setup_panic;
 use notify_rust::Notification;
 use rand::Rng;
 
@@ -42,6 +43,7 @@ static SMALL_REMAINDERS: [SmallRemainder; 3] = [
 
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    setup_panic!();
     let mut threads = Vec::new();
     for rem in SMALL_REMAINDERS.iter() {
         let t = thread::spawn(|| {
