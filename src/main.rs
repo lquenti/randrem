@@ -1,16 +1,20 @@
+use std::fs::File;
+use std::io::BufReader;
 use std::thread;
 use std::time::Duration;
 
 use anyhow::Result;
+use clap::Parser;
 use human_panic::setup_panic;
 use notify_rust::Notification;
 use rand::Rng;
+use serde::Deserialize;
 
-#[derive(Debug)]
-struct SmallRemainder<'a> {
+#[derive(Debug, Deserialize)]
+struct SmallRemainder {
     min_sec: u64,
     max_sec: u64,
-    text: &'a str
+    text: String,
 }
 
 fn run_notification_small(text: &str) -> Result<()> {
@@ -22,42 +26,36 @@ fn run_notification(summary: &str, body: &str) -> Result<()> {
     Ok(())
 }
 
-static SMALL_REMAINDERS: [SmallRemainder; 3] = [
-    SmallRemainder {
-        min_sec: 15*60,
-        max_sec: 60*60,
-        text: "Remember to have good posture.",
-    },
-    SmallRemainder {
-        min_sec: 15*60,
-        max_sec: 60*60,
-        text: "Remember to breathe through your nose.",
-    },
-    SmallRemainder {
-        min_sec: 60*60,
-        max_sec: 2*60*60,
-        text: "Remember to drink more water.",
-    },
-];
-
-
+#[derive(Parser)]
+#[command(author, version, about, long_about = None)]
+struct Cli {
+    /// Path to the JSON file
+    path: String,
+}
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let args = Cli::parse();
     setup_panic!();
+
+    let file = File::open(args.path)?;
+    let reader = BufReader::new(file);
+    let small_remainders: Vec<SmallRemainder> = serde_json::from_reader(reader)?;
+
     let mut threads = Vec::new();
-    for rem in SMALL_REMAINDERS.iter() {
-        let t = thread::spawn(|| {
+    for rem in small_remainders.into_iter() {
+        let t = thread::spawn(move || {
             let mut rng = rand::thread_rng();
-           loop {
-            let secs = rng.gen_range(rem.min_sec..rem.max_sec);
-            thread::sleep(Duration::from_secs(secs));
-            run_notification_small(&rem.text).unwrap(); // TODO
-           } 
+            loop {
+                let secs = rng.gen_range(rem.min_sec..rem.max_sec);
+                thread::sleep(Duration::from_secs(secs));
+                run_notification_small(&rem.text).unwrap();
+            }
         });
         threads.push(t);
     }
+    println!("Press CTRL+C to stop");
     for t in threads {
-        t.join().unwrap(); // TODO
+        t.join().unwrap();
     }
     Ok(())
 }

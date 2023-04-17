@@ -1,0 +1,17 @@
+[
+    {
+      "min_sec": 2,
+      "max_sec": 4,
+      "text": "Remember to have good posture."
+    },
+    {
+      "min_sec": 900,
+      "max_sec": 3600,
+      "text": "Remember to breathe through your nose."
+    },
+    {
+      "min_sec": 3600,
+      "max_sec": 7200,
+      "text": "Remember to drink more water."
+    }
+]
