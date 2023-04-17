@@ -33,7 +33,6 @@ struct Cli {
     path: String,
 }
 
-
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Cli::parse();
     setup_panic!();
