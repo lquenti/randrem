@@ -1,15 +1,17 @@
 [package]
 name = "randrem"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+description = "sending random remainders to be more healthy"
+homepage = "https://github.com/lquenti/randrem"
+repository = "https://github.com/lquenti/randrem"
+license = "MIT"
+authors = ["Lars Quentin <lars@lquenti.de>"]
+readme = "./README.md"
 
 [dependencies]
 anyhow = "1"
-clap = { version = "4.2", features = ["derive"] }
 human-panic = "1.1"
 notify-rust = "4"
 rand = "0.8"
-serde = "1.0"
-serde_json = "1.0"
+
