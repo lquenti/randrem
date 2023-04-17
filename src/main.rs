@@ -4,6 +4,7 @@ use std::thread;
 use std::time::Duration;
 
 use anyhow::Result;
+use clap::Parser;
 use human_panic::setup_panic;
 use notify_rust::Notification;
 use rand::Rng;
@@ -25,10 +26,19 @@ fn run_notification(summary: &str, body: &str) -> Result<()> {
     Ok(())
 }
 
+#[derive(Parser)]
+#[command(author, version, about, long_about = None)]
+struct Cli {
+    /// Path to the JSON file
+    path: String,
+}
+
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let args = Cli::parse();
     setup_panic!();
 
-    let file = File::open("example.json")?;
+    let file = File::open(args.path)?;
     let reader = BufReader::new(file);
     let small_remainders: Vec<SmallRemainder> = serde_json::from_reader(reader)?;
 

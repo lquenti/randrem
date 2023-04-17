@@ -7,6 +7,7 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1"
+clap = { version = "4.2", features = ["derive"] }
 human-panic = "1.1"
 notify-rust = "4"
 rand = "0.8"
