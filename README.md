@@ -1,5 +1,7 @@
 # randrem - Random Reminder
 
+**Note: This crate is actively maintained, there is just nothing to do rn**
+
 Randrem sends you random remainders via notification!
 
 ## Installation
