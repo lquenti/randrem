@@ -1,8 +1,10 @@
 # randrem - Random Reminder
 
-**Note: This crate is actively maintained, there is just nothing to do rn**
+(Although archived, it is still very usable. Consider it feature complete.)
 
 Randrem sends you random remainders via notification!
+
+Works on all major OS!
 
 ## Installation
 
@@ -39,32 +41,6 @@ cargo install randrem
 randrem ./path/to/example.json
 ```
 3. Be happy :)
-
-## How to run it at autostart
-
-1. Create a service unit file at `/etc/systemd/system/randrem.service`
-2. Fill it accordingly. Mine currently looks like
-```
-[Unit]
-Description=My Randrem Tool
-After=network.target
-
-[Service]
-ExecStart=/home/lquenti/code/randrem/target/release/randrem /home/lquenti/code/randrem/example.json
-
-[Install]
-WantedBy=default.target
-```
-3. Enable and start it   
-```
-sudo systemctl enable randrem
-sudo systemctl start randrem
-```
-4. Verify whether it worked
-```
-sudo systemctl status randrem
-```
-
 
 # LICENSE
 
